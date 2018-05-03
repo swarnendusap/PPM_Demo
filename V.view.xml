@@ -1,0 +1,158 @@
+<mvc:View controllerName="sap.ui.layout.sample.ResponsiveSplitter.C" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table" xmlns:core="sap.ui.core" xmlns="sap.m" height="100%">
+	<l:ResponsiveSplitter defaultPane="default">
+		<l:PaneContainer>
+			<l:SplitPane requiredParentWidth="400" id="default">
+				<Panel headerText="Project staffing and Resource Assignment" height="100%">
+					<layoutData><l:SplitterLayoutData size="20%"/>
+					</layoutData>
+					<!--					<List headerText="Products" items="{ path: '/ProductCollection' }">
+						<StandardListItem title="{Name}" counter="{Quantity}"/>
+					</List>-->
+					<Panel expandable="true" expanded="false" width="auto">
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="Project Staffing - Project Name"/>
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<ObjectListItem id="M1" title="Denali" type="Active" press="onShow"></ObjectListItem>
+							<ObjectListItem id="M2" title="Newtera" type="Active" press="onShow"></ObjectListItem>
+							<ObjectListItem id="M3" title="SAP Upgrade" type="Active" press="onShow"></ObjectListItem>
+						</content>
+					</Panel>
+					<Panel expandable="true" expanded="false" width="auto">
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="Resource Assignment - Resource Name"/>
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<ObjectListItem id="M2_2" title="TREGIDGO" type="Active" press="onHide"></ObjectListItem>
+							<ObjectListItem id="M1_2" title="BODRUG" type="Active" press="onHide"></ObjectListItem>
+							<ObjectListItem id="MF_2" title="SWARNENDU" type="Active" press="onHide"></ObjectListItem>
+						</content>
+					</Panel>
+				</Panel>
+			</l:SplitPane>
+			<l:SplitPane requiredParentWidth="800">
+				<Page title="Table Details">
+					<Table id="ProjDtlsTbl" inset="false" mode="MultiSelect" items="{path: 'ProjModelData>/ProjDtls' }">
+						<headerToolbar>
+							<OverflowToolbar>
+								<ToolbarSpacer/>
+								<Input id="iAllocFld" value="0" width="40px"/>
+								<Button text=">" press="onPressAllocate" tooltip="Allocate" type="Reject"/>
+									<Button id="btnAdd" icon="sap-icon://add" tooltip="Add Row" press="onPressAdd" class="add"/>
+									<Button id="btnDelete" icon="sap-icon://delete" tooltip="Delete" press="onPressDelete" class="delete"/>
+									<!--<Button id="btnCopy" icon="sap-icon://activity-2" tooltip="Copy" press="onPressCopy"/>
+								<Button id="btnEdit" icon="sap-icon://edit" tooltip="Edit" press="onPressEdit" class="edit"/>-->
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<!--	<Column width="20px"/>-->
+								<!--<Column width="1.5em"/>-->
+								<Column width="8em">
+									<Text text="Role Name"/>
+								</Column>
+								<Column width="8em">
+									<Text text="Comment"/>
+								</Column>
+								<Column width="4em">
+									<Text text="Duration From"/>
+								</Column>
+								<Column width="4em">
+									<Text text="Duration To"/>
+								</Column>
+								<Column width="8em">
+									<Text text="Resource"/>
+								</Column>
+								<Column width="3em">
+									<Text text="Jan-18"/>
+								</Column>
+								<Column width="3em">
+									<Text text="Feb-18"/>
+								</Column>
+								<Column width="3em">
+									<Text text="Mar-18"/>
+								</Column>
+								<Column width="3em">
+									<Text text="Apr-18"/>
+								</Column>
+								<Column width="3em">
+									<Text text="May-18"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<!--<Button icon="sap-icon://add" press="deleteRow" type="Reject"/>
+									<Button icon="sap-icon://delete" press="deleteRow" type="Reject"/>-->
+										<!--<CheckBox  />-->
+										<Input value="{ProjModelData>RlNm}"/>
+										<Input value="{ProjModelData>Com}"/>
+										<!--<DatePicker id="dInputFrm" dateValue="{ProjModelData>Frm}" />-->
+										<Input value="{ProjModelData>Frm}"/>
+										<Input value="{ProjModelData>To}"/>
+										<!--<Input value="{ProjModelData>Res}"/>-->
+										<Select id="NmDD" selectedKey="{ProjModelData>Res}" forceSelection="false" change="onChangeNmDD" width="100%"
+											items="{ProjModelData>/NameList}">
+											<core:Item key="{ProjModelData>Name}" text="{ProjModelData>Name}"/>
+										</Select>
+										<Input value="{ProjModelData>Jan}"/>
+										<Input value="{ProjModelData>Feb}"/>
+										<Input value="{ProjModelData>Mar}"/>
+										<Input value="{ProjModelData>Apr}"/>
+										<Input value="{ProjModelData>May}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<footer>
+							<OverflowToolbar id="otb3">
+								<ToolbarSpacer/>
+								<Button text="Save" type="Accept" press="onPressSave"/>
+								<!--<Button text="Save as" type="Transparent"/>
+								<Button text="Cut" type="Transparent"/>
+								<Button text="Copy" type="Transparent"/>
+								<Button text="Paste" type="Transparent"/>-->
+								<Button text="Undo" type="Transparent"/>
+								<Button text="Cancel" type="Transparent"/>
+							</OverflowToolbar>
+						</footer>
+					</Page>
+				</l:SplitPane>
+				<!--			<l:PaneContainer orientation="Vertical">
+				<l:SplitPane  requiredParentWidth="600">
+					<Panel headerText="Minimum parent width 600">
+						<Select forceSelection="false" selectedKey="1239102" 
+							items="{
+								path: '/ProductCollection',
+								sorter: { path: 'Name' }
+							}">
+							<core:Item key="{ProductId}" text="{Name}" />
+						</Select>
+					</Panel>
+				</l:SplitPane>
+				<l:SplitPane  requiredParentWidth="800">
+					<Page title="Minimum parent width 800">
+						<footer>
+							<OverflowToolbar id="otb3">
+								<Label text="Buttons:" />
+								<ToolbarSpacer />
+								<Button text="New" type="Transparent"/>
+								<Button text="Open" type="Transparent"/>
+								<Button text="Save" type="Transparent"/>
+								<Button text="Save as" type="Transparent"/>
+								<Button text="Cut" type="Transparent"/>
+								<Button text="Copy" type="Transparent"/>
+								<Button text="Paste" type="Transparent"/>
+								<Button text="Undo" type="Transparent"/>
+							</OverflowToolbar>
+						</footer>
+					</Page>
+				</l:SplitPane>
+			</l:PaneContainer>-->
+			</l:PaneContainer>
+		</l:ResponsiveSplitter>
+	</mvc:View>
