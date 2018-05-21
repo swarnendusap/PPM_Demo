@@ -9,7 +9,7 @@ sap.ui.define([
 	var ResponsiveSplitterController = Controller.extend("sap.ui.layout.sample.ResponsiveSplitter.C", {
 
 		onInit: function(evt) {
-			var aData = {
+/*			var aData = {
 				"ProjDtls": [{
 					RowNm: 1,
 					RlNm: "Bioinformatician - Cosmin",
@@ -22,18 +22,6 @@ sap.ui.define([
 					Mar: "0.25",
 					Apr: "0.25",
 					May: "0.25"
-				}, {
-					RowNm: 2,
-					RlNm: "IT - Engineer",
-					Com: "SAP",
-					Frm: "4/1/2017",
-					To: "12/31/2018",
-					Res: "SWARNENDU",
-					Jan: "0.5",
-					Feb: "0.5",
-					Mar: "0.5",
-					Apr: "0.5",
-					May: "0.5"
 				}, {
 					RowNm: 3,
 					RlNm: "Enzyme Developer",
@@ -50,21 +38,30 @@ sap.ui.define([
 				"NameList": [{
 					Name: "TREGIDGO"
 				}, {
-					Name: "BODRUG"
-				}, {
 					Name: "SWARNENDU"
 				}]
-			};
+			};*/
 
-			var aModel = new sap.ui.model.json.JSONModel(aData);
-			this.getView().setModel(aModel, 'ProjModelData');
-			console.log(this.getView().getModel("ProjModelData"));
+			// var aModel = new sap.ui.model.json.JSONModel(aData);
+			// this.getView().setModel(aModel, 'ProjModelData');
 
-			//this.getView().setModel(oModel);
+			var mModel = new JSONModel(jQuery.sap.getModulePath("sap.ui.demo.mock", "/projects.json"));
+			this.getView().setModel(mModel, "ProjModelData");
+			
+console.log(this.getView().getModel("ProjModelData"));
 
 			// set explored app's demo model on this sample
 			var oModel = new JSONModel(jQuery.sap.getModulePath("sap.ui.demo.mock", "/products.json"));
 			this.getView().setModel(oModel);
+			
+			
+			//Table 1
+			// var filters = [ new sap.ui.model.Filter("ResNm", sap.ui.model.FilterOperator.Contains, "TREGIDGO") ];
+			// this.getView().byId("ResAsmntTbl").getBinding("items").filter(filters); 			
+			
+			//Table 2
+			// var filters = [ new sap.ui.model.Filter("ResNm", sap.ui.model.FilterOperator.Contains, "TREGIDGO") ];
+			// this.getView().byId("ResAsmntTbl").getBinding("items").filter(filters); 
 		},
 
 		onPressAdd: function(oEvent) {
@@ -179,13 +176,89 @@ sap.ui.define([
 			});
 		},
 		
-		onHide : function(oEvent)
-		{
-			this.getView().byId("ProjDtlsTbl").setVisible(false);
+		onSearchRlNm : function(oEvent) {
+
+			var searchString = oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("RlNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ProjDtlsTbl").getBinding("items").filter(filters);  
 		},
-		onShow : function(oEvent)
+		onShowDanali : function(oEvent)
 		{
+			var searchString = "Denali"; //oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("ProjNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ProjDtlsTbl").getBinding("items").filter(filters);  
 			this.getView().byId("ProjDtlsTbl").setVisible(true);
+		},
+		onShowNewtera : function(oEvent)
+		{
+			var searchString = "Newtera"; //oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("ProjNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ProjDtlsTbl").getBinding("items").filter(filters);  
+			this.getView().byId("ProjDtlsTbl").setVisible(true);
+		},
+		onShowSAP : function(oEvent)
+		{
+			var searchString = "SAP Upgrade"; //oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("ProjNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ProjDtlsTbl").getBinding("items").filter(filters);  
+			this.getView().byId("ProjDtlsTbl").setVisible(true);
+		},
+		onShowTab2_1 : function(oEvent)
+		{
+			var searchString = "TREGIDGO"; //oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("ResNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ResAsmntTbl").getBinding("items").filter(filters);  
+			//this.getView().byId("ResAsmntTbl").setVisible(true);
+		},
+		onShowTab2_2 : function(oEvent)
+		{
+			var searchString = "BODRUG"; //oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("ResNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ResAsmntTbl").getBinding("items").filter(filters);  
+			//this.getView().byId("ResAsmntTbl").setVisible(true);
+		},
+		onShowTab2_3 : function(oEvent)
+		{
+			var searchString = "SWARNENDU"; //oEvent.getParameter("query");
+			var filters = [];
+			if (searchString && searchString.length > 0) {
+				filters = [ new sap.ui.model.Filter("ResNm", sap.ui.model.FilterOperator.Contains, searchString) ];
+			}
+			//oEvent.getSource().getBinding("items").filter(filters);
+			this.getView().byId("ResAsmntTbl").getBinding("items").filter(filters);  
+			//this.getView().byId("ResAsmntTbl").setVisible(true);
+		},		
+		onHideTable : function(oEvent)
+		{
+			//this.getView().byId("ProjDtlsTbl").setVisible(false);
+		},
+		onShowTable : function(oEvent)
+		{
+			//this.getView().byId("ProjDtlsTbl").setVisible(true);
 		}
 
 	});

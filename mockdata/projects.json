@@ -1,0 +1,83 @@
+{
+				"ProjDtls": [{
+					"ProjNm": "Denali",
+					"RowNm": 1,
+					"RlNm": "Bioinformatician - Cosmin",
+					"Com": "Please assign ABC",
+					"Frm": "1/1/2018",
+					"To": "12/31/2018",
+					"Res": "BODRUG",
+					"Jan": "0.25",
+					"Feb": "0.25",
+					"Mar": "0.25",
+					"Apr": "0.25",
+					"May": "0.25"
+				}, {
+					"ProjNm": "SAP Upgrade",
+					"RowNm": 2,
+					"RlNm": "IT - Engineer",
+					"Com": "SAP",
+					"Frm": "4/1/2017",
+					"To": "12/31/2018",
+					"Res": "SWARNENDU",
+					"Jan": "0.5",
+					"Feb": "0.5",
+					"Mar": "0.5",
+					"Apr": "0.5",
+					"May": "0.5"
+				}, {
+					"ProjNm": "Newtera",
+					"RowNm": 3,
+					"RlNm": "Enzyme Developer",
+					"Com": "Pl Assign XYZ",
+					"Frm": "1/1/2018",
+					"To": "12/31/2019",
+					"Res": "TREGIDGO",
+					"Jan": "0.25",
+					"Feb": "0.25",
+					"Mar": "0.25",
+					"Apr": "0.25",
+					"May": "0.25"
+				}],
+				"ResDtls": [{
+					"ResNm": "TREGIDGO",
+					"ProjNm": "Newtera",
+					"RowNm": 1,
+					"RlNm": "Enzyme Developer",
+					"Jan": "0.25",
+					"Feb": "0.25",
+					"Mar": "0.25",
+					"Apr": "0.25",
+					"May": "0.25",
+					"Jun": "0.25"
+				}, {
+					"ResNm": "BODRUG",
+					"ProjNm": "Denali",
+					"RowNm": 2,
+					"RlNm": "Bioinformatician - Cosmin",
+					"Jan": "0.25",
+					"Feb": "0.25",
+					"Mar": "0.25",
+					"Apr": "0.25",
+					"May": "0.25",
+					"Jun": "0.25"
+				}, {
+					"ResNm": "SWARNENDU",
+					"ProjNm": "SAP Upgrade",
+					"RowNm": 3,
+					"RlNm": "IT - Engineer",
+					"Jan": "0.75",
+					"Feb": "0.75",
+					"Mar": "0.75",
+					"Apr": "0.75",
+					"May": "0.75",
+					"Jun": "0.75"
+				}],				
+				"NameList": [{
+					"Name": "TREGIDGO"
+				}, {
+					"Name": "BODRUG"
+				}, {
+					"Name": "SWARNENDU"
+				}]
+			}

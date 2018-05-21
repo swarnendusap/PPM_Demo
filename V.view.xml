@@ -16,9 +16,9 @@
 							</Toolbar>
 						</headerToolbar>
 						<content>
-							<ObjectListItem id="M1" title="Denali" type="Active" press="onShow"></ObjectListItem>
-							<ObjectListItem id="M2" title="Newtera" type="Active" press="onShow"></ObjectListItem>
-							<ObjectListItem id="M3" title="SAP Upgrade" type="Active" press="onShow"></ObjectListItem>
+							<ObjectListItem id="M1_1" title="Denali" type="Active" press="onShowDanali"></ObjectListItem>
+							<ObjectListItem id="M1_2" title="Newtera" type="Active" press="onShowNewtera"></ObjectListItem>
+							<ObjectListItem id="M1_3" title="SAP Upgrade" type="Active" press="onShowSAP"></ObjectListItem>
 						</content>
 					</Panel>
 					<Panel expandable="true" expanded="false" width="auto">
@@ -28,100 +28,174 @@
 							</Toolbar>
 						</headerToolbar>
 						<content>
-							<ObjectListItem id="M2_2" title="TREGIDGO" type="Active" press="onHide"></ObjectListItem>
-							<ObjectListItem id="M1_2" title="BODRUG" type="Active" press="onHide"></ObjectListItem>
-							<ObjectListItem id="MF_2" title="SWARNENDU" type="Active" press="onHide"></ObjectListItem>
+							<ObjectListItem id="M2_1" title="TREGIDGO" type="Active" press="onShowTab2_1"></ObjectListItem>
+							<ObjectListItem id="M2_2" title="BODRUG" type="Active" press="onShowTab2_2"></ObjectListItem>
+							<ObjectListItem id="M2_3" title="SWARNENDU" type="Active" press="onShowTab2_3"></ObjectListItem>
 						</content>
 					</Panel>
 				</Panel>
 			</l:SplitPane>
-			<l:SplitPane requiredParentWidth="800">
-				<Page title="Table Details">
-					<Table id="ProjDtlsTbl" inset="false" mode="MultiSelect" items="{path: 'ProjModelData>/ProjDtls' }">
-						<headerToolbar>
-							<OverflowToolbar>
-								<ToolbarSpacer/>
-								<Input id="iAllocFld" value="0" width="40px"/>
-								<Button text=">" press="onPressAllocate" tooltip="Allocate" type="Reject"/>
-									<Button id="btnAdd" icon="sap-icon://add" tooltip="Add Row" press="onPressAdd" class="add"/>
-									<Button id="btnDelete" icon="sap-icon://delete" tooltip="Delete" press="onPressDelete" class="delete"/>
-									<!--<Button id="btnCopy" icon="sap-icon://activity-2" tooltip="Copy" press="onPressCopy"/>
+			<l:PaneContainer orientation="Vertical">
+				<l:SplitPane requiredParentWidth="800">
+					<Page title="Table Details for Project Staffing">
+						<Table id="ProjDtlsTbl" inset="false" mode="MultiSelect" items="{path: 'ProjModelData>/ProjDtls' }">
+							<headerToolbar>
+								<OverflowToolbar>
+									<ToolbarSpacer/>
+									<SearchField id="rlNamSearchText" placeholder="Role Name" search="onSearchRlNm" width="15rem"/>
+									<Input id="iAllocFld" value="0" width="40px"/>
+									<Button text=">" press="onPressAllocate" tooltip="Allocate" type="Reject"/>
+										<Button id="btnAdd" icon="sap-icon://add" tooltip="Add Row" press="onPressAdd" class="add"/>
+										<Button id="btnDelete" icon="sap-icon://delete" tooltip="Delete" press="onPressDelete" class="delete"/>
+										<!--<Button id="btnCopy" icon="sap-icon://activity-2" tooltip="Copy" press="onPressCopy"/>
 								<Button id="btnEdit" icon="sap-icon://edit" tooltip="Edit" press="onPressEdit" class="edit"/>-->
-								</OverflowToolbar>
-							</headerToolbar>
-							<columns>
-								<!--	<Column width="20px"/>-->
-								<!--<Column width="1.5em"/>-->
-								<Column width="8em">
-									<Text text="Role Name"/>
-								</Column>
-								<Column width="8em">
-									<Text text="Comment"/>
-								</Column>
-								<Column width="4em">
-									<Text text="Duration From"/>
-								</Column>
-								<Column width="4em">
-									<Text text="Duration To"/>
-								</Column>
-								<Column width="8em">
-									<Text text="Resource"/>
-								</Column>
-								<Column width="3em">
-									<Text text="Jan-18"/>
-								</Column>
-								<Column width="3em">
-									<Text text="Feb-18"/>
-								</Column>
-								<Column width="3em">
-									<Text text="Mar-18"/>
-								</Column>
-								<Column width="3em">
-									<Text text="Apr-18"/>
-								</Column>
-								<Column width="3em">
-									<Text text="May-18"/>
-								</Column>
-							</columns>
-							<items>
-								<ColumnListItem>
-									<cells>
-										<!--<Button icon="sap-icon://add" press="deleteRow" type="Reject"/>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<!--	<Column width="20px"/>-->
+									<!--<Column width="1.5em"/>-->
+									<Column width="8em">
+										<Text text="Role Name"/>
+									</Column>
+									<Column width="8em">
+										<Text text="Comment"/>
+									</Column>
+									<Column width="4em">
+										<Text text="Duration From"/>
+									</Column>
+									<Column width="4em">
+										<Text text="Duration To"/>
+									</Column>
+									<Column width="8em">
+										<Text text="Resource"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Jan-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Feb-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Mar-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Apr-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="May-18"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<!--<Button icon="sap-icon://add" press="deleteRow" type="Reject"/>
 									<Button icon="sap-icon://delete" press="deleteRow" type="Reject"/>-->
-										<!--<CheckBox  />-->
-										<Input value="{ProjModelData>RlNm}"/>
-										<Input value="{ProjModelData>Com}"/>
-										<!--<DatePicker id="dInputFrm" dateValue="{ProjModelData>Frm}" />-->
-										<Input value="{ProjModelData>Frm}"/>
-										<Input value="{ProjModelData>To}"/>
-										<!--<Input value="{ProjModelData>Res}"/>-->
-										<Select id="NmDD" selectedKey="{ProjModelData>Res}" forceSelection="false" change="onChangeNmDD" width="100%"
-											items="{ProjModelData>/NameList}">
-											<core:Item key="{ProjModelData>Name}" text="{ProjModelData>Name}"/>
-										</Select>
-										<Input value="{ProjModelData>Jan}"/>
-										<Input value="{ProjModelData>Feb}"/>
-										<Input value="{ProjModelData>Mar}"/>
-										<Input value="{ProjModelData>Apr}"/>
-										<Input value="{ProjModelData>May}"/>
-									</cells>
-								</ColumnListItem>
-							</items>
-						</Table>
-						<footer>
-							<OverflowToolbar id="otb3">
-								<ToolbarSpacer/>
-								<Button text="Save" type="Accept" press="onPressSave"/>
-								<!--<Button text="Save as" type="Transparent"/>
+											<!--<CheckBox  />-->
+											<Input value="{ProjModelData>RlNm}"/>
+											<Input value="{ProjModelData>Com}"/>
+											<!--<DatePicker id="dInputFrm" dateValue="{ProjModelData>Frm}" />-->
+											<Input value="{ProjModelData>Frm}"/>
+											<Input value="{ProjModelData>To}"/>
+											<!--<Input value="{ProjModelData>Res}"/>-->
+											<Select id="NmDD" selectedKey="{ProjModelData>Res}" forceSelection="false" change="onChangeNmDD" width="100%"
+												items="{ProjModelData>/NameList}">
+												<core:Item key="{ProjModelData>Name}" text="{ProjModelData>Name}"/>
+											</Select>
+											<Input value="{ProjModelData>Jan}"/>
+											<Input value="{ProjModelData>Feb}"/>
+											<Input value="{ProjModelData>Mar}"/>
+											<Input value="{ProjModelData>Apr}"/>
+											<Input value="{ProjModelData>May}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<footer>
+								<OverflowToolbar id="otb1">
+									<ToolbarSpacer/>
+									<Button text="Save" type="Accept" press="onPressSave"/>
+									<!--<Button text="Save as" type="Transparent"/>
 								<Button text="Cut" type="Transparent"/>
 								<Button text="Copy" type="Transparent"/>
 								<Button text="Paste" type="Transparent"/>-->
-								<Button text="Undo" type="Transparent"/>
-								<Button text="Cancel" type="Transparent"/>
-							</OverflowToolbar>
-						</footer>
-					</Page>
-				</l:SplitPane>
+									<Button text="Undo" type="Transparent"/>
+									<Button text="Cancel" type="Transparent"/>
+								</OverflowToolbar>
+							</footer>
+						</Page>
+					</l:SplitPane>
+					<l:SplitPane requiredParentWidth="800">
+						<Page title="Table Details for Resource Assignment">
+						<Table id="ResAsmntTbl" inset="false" mode="MultiSelect" items="{path: 'ProjModelData>/ResDtls' }">
+							<headerToolbar>
+								<OverflowToolbar>
+									<ToolbarSpacer/>
+									<!--<SearchField id="rlNamSearchText1" placeholder="Role Name" search="onSearchRlNm" width="15rem"/>-->
+									<!--<Input id="iAllocFld1" value="0" width="40px"/>-->
+									<!--<Button text=">" press="onPressAllocate" tooltip="Allocate" type="Reject"/>-->
+									<!--	<Button id="btnAdd1" icon="sap-icon://add" tooltip="Add Row" press="onPressAdd" class="add"/>-->
+									<!--	<Button id="btnDelete1" icon="sap-icon://delete" tooltip="Delete" press="onPressDelete" class="delete"/>-->
+										<!--<Button id="btnCopy" icon="sap-icon://activity-2" tooltip="Copy" press="onPressCopy"/>
+								<Button id="btnEdit" icon="sap-icon://edit" tooltip="Edit" press="onPressEdit" class="edit"/>-->
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<!--	<Column width="20px"/>-->
+									<!--<Column width="1.5em"/>-->
+									<Column width="8em">
+										<Text text="Project Name"/>
+									</Column>
+									<Column width="8em">
+										<Text text="Role Name"/>
+									</Column>
+
+									<Column width="3em">
+										<Text text="Jan-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Feb-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Mar-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Apr-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="May-18"/>
+									</Column>
+									<Column width="3em">
+										<Text text="Jun-18"/>
+									</Column>									
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Input value="{ProjModelData>ProjNm}"/>
+											<Input value="{ProjModelData>RlNm}"/>
+											<Input value="{ProjModelData>Jan}"/>
+											<Input value="{ProjModelData>Feb}"/>
+											<Input value="{ProjModelData>Mar}"/>
+											<Input value="{ProjModelData>Apr}"/>
+											<Input value="{ProjModelData>May}"/>
+											<Input value="{ProjModelData>Jun}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							
+							
+							<footer>
+								<OverflowToolbar id="otb2">
+									<ToolbarSpacer/>
+									<Button text="Save" type="Accept" press="onPressSave"/>
+									<Button text="Undo" type="Transparent"/>
+									<Button text="Cancel" type="Transparent"/>
+								</OverflowToolbar>
+							</footer>
+						</Page>
+					</l:SplitPane>
+				</l:PaneContainer>
 				<!--			<l:PaneContainer orientation="Vertical">
 				<l:SplitPane  requiredParentWidth="600">
 					<Panel headerText="Minimum parent width 600">
