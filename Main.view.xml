@@ -1,4 +1,4 @@
-<mvc:View controllerName="sap.ui.layout.sample.ResponsiveSplitter.C" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="illumina.ppm.Main" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:t="sap.ui.table" xmlns:core="sap.ui.core" xmlns="sap.m" height="100%">
 	<l:ResponsiveSplitter defaultPane="default">
 		<l:PaneContainer>

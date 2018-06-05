@@ -2,24 +2,24 @@ sap.ui.define(['sap/ui/core/UIComponent'],
 	function (UIComponent) {
 		"use strict";
 
-		var Component = UIComponent.extend("sap.ui.layout.sample.ResponsiveSplitter.Component", {
+		var Component = UIComponent.extend("illumina.ppm.Component", {
 
 			metadata: {
 				includes : [ "css/custom.css"],
-				rootView: "sap.ui.layout.sample.ResponsiveSplitter.V",
+				rootView: "illumina.ppm.Main",
 				dependencies: {
 					libs: [
 						"sap.ui.layout",
 					]
 				},
 				config: {
-					sample: {
+/*					sample: {
 						stretch : true,
 						files: [
 							"V.view.xml",
 							"C.controller.js"
 						]
-					}
+					}*/
 				}
 			}
 		});

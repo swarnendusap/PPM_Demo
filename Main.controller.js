@@ -6,7 +6,7 @@ sap.ui.define([
 ], function(jQuery, Controller, JSONModel, MessageBox) {
 	"use strict";
 
-	var ResponsiveSplitterController = Controller.extend("sap.ui.layout.sample.ResponsiveSplitter.C", {
+	var ResponsiveSplitterController = Controller.extend("illumina.ppm.Main", {
 
 		onInit: function(evt) {
 /*			var aData = {
