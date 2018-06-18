@@ -1,16 +1,16 @@
-/* global globe, com */
+/* global globe, com, illumina, ppm */
 
-$.sap.declare('com.ega.pmnotification.util.Formatter');
+$.sap.declare('illumina.ppm.util.Formatter');
 $.sap.require("sap.ca.ui.model.format.DateFormat");
 
-com.ega.pmnotification.util.Formatter = {
+illumina.ppm.util.Formatter = {
 
-	dateFormatter : function(dDate) {
+	dateFormatter: function(dDate) {
 		var oDateFormat = sap.ca.ui.model.format.DateFormat.getDateInstance();
 		return oDateFormat.format(dDate);
 	},
 
-	textLbl : function(lbl) {
+	textLbl: function(lbl) {
 		var str = "";
 		if (lbl === "ALL") {
 			str = "Display All Notifications";
@@ -23,34 +23,43 @@ com.ega.pmnotification.util.Formatter = {
 		}
 		return str;
 	},
+	concatFisLasName: function(fName, lName) {
+		if (fName === "") {
+			return lName;
+		}
+		else if(lName === ""){
+			return lName;
+		}
+		return fName + " " + lName;
+	}
 
 };
 
-com.ega.pmnotification.util.Formatter.textFormatter = function(sCode, sText) {
-	if (sCode===""){
+illumina.ppm.util.Formatter.textFormatter = function(sCode, sText) {
+	if (sCode === "") {
 		return sCode;
 	}
 	return sCode + "  |   " + sText;
 };
 
-com.ega.pmnotification.util.Formatter.textFormAddHyphen = function(sCode, sText) {
+illumina.ppm.util.Formatter.textFormAddHyphen = function(sCode, sText) {
 	return sCode + "   \-   " + sText;
 };
 
-com.ega.pmnotification.util.Formatter.formatMasterListTitle = function(text, oListData) {
+illumina.ppm.util.Formatter.formatMasterListTitle = function(text, oListData) {
 	return text + '(' + oListData.length + ')';
 };
 
-com.ega.pmnotification.util.Formatter.stateFormatter = function(text) {
+illumina.ppm.util.Formatter.stateFormatter = function(text) {
 	var state;
-	if(text === "Notification completed"){
-		state = "Success"
-	}else if (text === "Notification in process"){
-		state = "Warning"
-	}else {
-		state = "Error"
+	if (text === "Notification completed") {
+		state = "Success";
+	} else if (text === "Notification in process") {
+		state = "Warning";
+	} else {
+		state = "Error";
 	}
-	
+
 	return state;
 };
 

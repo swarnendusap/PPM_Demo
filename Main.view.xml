@@ -1,44 +1,80 @@
-<mvc:View controllerName="illumina.ppm.Main" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:t="sap.ui.table" xmlns:core="sap.ui.core" xmlns="sap.m" height="100%">
+<mvc:View controllerName="illumina.ppm.Main" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:t="sap.ui.table"
+	xmlns:core="sap.ui.core" xmlns="sap.m" height="100%" width="100%">
 	<l:ResponsiveSplitter defaultPane="default">
 		<l:PaneContainer>
 			<l:SplitPane requiredParentWidth="400" id="default">
-				<Panel headerText="Project staffing and Resource Assignment" height="100%">
+				<Panel height="100%">
 					<layoutData><l:SplitterLayoutData size="20%"/>
 					</layoutData>
-					<!--					<List headerText="Products" items="{ path: '/ProductCollection' }">
-						<StandardListItem title="{Name}" counter="{Quantity}"/>
-					</List>-->
-					<Panel expandable="true" expanded="false" width="auto">
+					<Panel expandable="true" expanded="true" width="auto">
 						<headerToolbar>
 							<Toolbar height="3rem">
-								<Title text="Project Staffing - Project Name"/>
+								<Title text="Project List"/>
 							</Toolbar>
 						</headerToolbar>
 						<content>
-							<ObjectListItem id="M1_1" title="Denali" type="Active" press="onShowDanali"></ObjectListItem>
-							<ObjectListItem id="M1_2" title="Newtera" type="Active" press="onShowNewtera"></ObjectListItem>
-							<ObjectListItem id="M1_3" title="SAP Upgrade" type="Active" press="onShowSAP"></ObjectListItem>
+							<!--Working set**********-->
+							<!--<List id="list" items="{ path: 'ProjectList>/', sorter: { path: 'ProjectName', descending: false }}" selectionChange="onSelectionChange">
+						<items>
+							<ObjectListItem type="Active" press="onSelectionChange" title="{ProjectList>ProjectName}"/>
+						</items>
+					</List>-->
+							<!--	<List
+		items="{ProjectList>/}"
+		headerText="Projects">
+		<items>
+			<ObjectListItem
+				title="{ProjectList>ProjectName}"
+				type="Active"
+				press="onListItemPress">
+			</ObjectListItem>
+		</items>
+	</List>	-->
+							<SelectList items="{ path: 'ProjectList>/', sorter: { path: 'ProjectName' } }" itemPress="" selectionChange="onListItemPress">
+								<core:Item key="{ProjectList>ProjectId}" text="{ProjectList>ProjectName}"/>
+							</SelectList>
+							<!--					<List id=”companyList” items="{/ProjectList}">
+						<items>
+							<StandardListItem title="{ProjectName}" description="{ProjectName}"/>
+						</items>
+					</List>-->
+							<!--							<List id="list"
+								items="{ path: '/ProjectList', sorter: { path: 'ProjectName', descending: false }, groupHeaderFactory: '.createGroupHeader' }"
+								busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}"
+								mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+								updateFinished="onUpdateFinished" selectionChange="onSelectionChange">
+								<infoToolbar>
+									<Toolbar active="true" id="filterBar" visible="{masterView>/isFilterBarVisible}" press="onOpenViewSettings">
+										<Title id="filterBarLabel" text="{masterView>/filterBarLabel}"/>
+									</Toolbar>
+								</infoToolbar>
+								<items>
+									<ObjectListItem type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}" press="onSelectionChange" title="{ProjectName}"></ObjectListItem>
+								</items>
+							</List>-->
 						</content>
 					</Panel>
 					<Panel expandable="true" expanded="false" width="auto">
 						<headerToolbar>
 							<Toolbar height="3rem">
-								<Title text="Resource Assignment - Resource Name"/>
+								<Title text="Resource List"/>
 							</Toolbar>
 						</headerToolbar>
 						<content>
-							<ObjectListItem id="M2_1" title="TREGIDGO" type="Active" press="onShowTab2_1"></ObjectListItem>
-							<ObjectListItem id="M2_2" title="BODRUG" type="Active" press="onShowTab2_2"></ObjectListItem>
-							<ObjectListItem id="M2_3" title="SWARNENDU" type="Active" press="onShowTab2_3"></ObjectListItem>
+							<!--<ObjectListItem id="M2_1" title="TREGIDGO" type="Active" press="onShowTab2_1"></ObjectListItem>-->
+							<SelectList items="{ path: 'ResourceList>/', sorter: { path: 'BupaFirstName' } }" itemPress="" selectionChange="onListResourceItemPress">
+								<core:Item key="{ResourceList>BupaId}" text="{ parts:[ {path: 'ResourceList>BupaFirstName'}, {path: 'ResourceList>BupaLastName'} ], formatter: 'illumina.ppm.util.Formatter.concatFisLasName' }"/>
+							</SelectList>
 						</content>
 					</Panel>
 				</Panel>
 			</l:SplitPane>
 			<l:PaneContainer orientation="Vertical">
-				<l:SplitPane requiredParentWidth="800">
-					<Page title="Table Details for Project Staffing">
-						<Table id="ProjDtlsTbl" inset="false" mode="MultiSelect" items="{path: 'ProjModelData>/ProjDtls' }">
+				<l:SplitPane >
+					<!--requiredParentWidth="800" -->
+					<!--<Page title="Table Details for Project Staffing" enableScrolling="true">-->
+					<ScrollContainer horizontal="true" vertical="true" height="100%">
+						<Table id="ProjDtlsTbl" inset="false" mode="MultiSelect" items="{path: 'SelectedProjectTableData>/' }" headerText="Project Details">
 							<headerToolbar>
 								<OverflowToolbar>
 									<ToolbarSpacer/>
@@ -52,139 +88,164 @@
 									</OverflowToolbar>
 								</headerToolbar>
 								<columns>
-									<!--	<Column width="20px"/>-->
-									<!--<Column width="1.5em"/>-->
-									<Column width="8em">
-										<Text text="Role Name"/>
-									</Column>
-									<Column width="8em">
-										<Text text="Comment"/>
-									</Column>
-									<Column width="4em">
-										<Text text="Duration From"/>
-									</Column>
-									<Column width="4em">
-										<Text text="Duration To"/>
-									</Column>
-									<Column width="8em">
-										<Text text="Resource"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Jan-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Feb-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Mar-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Apr-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="May-18"/>
-									</Column>
+									<Column width="8em"><Label id="l_RoleName" text=""/></Column>
+									<Column width="8em"><Label id="l_RoleFunction" text=""/></Column>
+									<Column width="8em"><Label id="l_BeginDate" text=""/></Column>
+									<Column width="8em"><Label id="l_EndDate" text=""/></Column>
+									<Column width="8em"><Label id="l_ResourceName" text=""/></Column>
+									<Column width="5em"><Label id="l_Month1" text=""/></Column>
+									<Column width="5em"><Label id="l_Month2" text=""/></Column>
+									<Column width="5em"><Label id="l_Month3" text=""/></Column>
+									<Column width="5em"><Label id="l_Month4" text=""/></Column>
+									<Column width="5em"><Label id="l_Month5" text=""/></Column>
+									<Column width="5em"><Label id="l_Month6" text=""/></Column>
+									<Column width="5em"><Label id="l_Month7" text=""/></Column>
+									<Column width="5em"><Label id="l_Month8" text=""/></Column>
+									<Column width="5em"><Label id="l_Month9" text=""/></Column>
+									<Column width="5em"><Label id="l_Month10" text=""/></Column>
+									<Column width="5em"><Label id="l_Month11" text=""/></Column>
+									<Column width="5em"><Label id="l_Month12" text=""/></Column>
+									<Column width="5em"><Label id="l_Month13" text=""/></Column>
+									<Column width="5em"><Label id="l_Month14" text=""/></Column>
+									<Column width="5em"><Label id="l_Month15" text=""/></Column>
+									<Column width="5em"><Label id="l_Month16" text=""/></Column>
+									<Column width="5em"><Label id="l_Month17" text=""/></Column>
+									<Column width="5em"><Label id="l_Month18" text=""/></Column>
+									<Column width="5em"><Label id="l_Month19" text=""/></Column>
+									<Column width="5em"><Label id="l_Month20" text=""/></Column>
+									<Column width="5em"><Label id="l_Month21" text=""/></Column>
+									<Column width="5em"><Label id="l_Month22" text=""/></Column>
+									<Column width="5em"><Label id="l_Month23" text=""/></Column>
+									<Column width="5em"><Label id="l_Month24" text=""/></Column>
 								</columns>
 								<items>
 									<ColumnListItem>
 										<cells>
-											<!--<Button icon="sap-icon://add" press="deleteRow" type="Reject"/>
-									<Button icon="sap-icon://delete" press="deleteRow" type="Reject"/>-->
-											<!--<CheckBox  />-->
-											<Input value="{ProjModelData>RlNm}"/>
-											<Input value="{ProjModelData>Com}"/>
-											<!--<DatePicker id="dInputFrm" dateValue="{ProjModelData>Frm}" />-->
-											<Input value="{ProjModelData>Frm}"/>
-											<Input value="{ProjModelData>To}"/>
-											<!--<Input value="{ProjModelData>Res}"/>-->
-											<Select id="NmDD" selectedKey="{ProjModelData>Res}" forceSelection="false" change="onChangeNmDD" width="100%"
-												items="{ProjModelData>/NameList}">
-												<core:Item key="{ProjModelData>Name}" text="{ProjModelData>Name}"/>
-											</Select>
-											<Input value="{ProjModelData>Jan}"/>
-											<Input value="{ProjModelData>Feb}"/>
-											<Input value="{ProjModelData>Mar}"/>
-											<Input value="{ProjModelData>Apr}"/>
-											<Input value="{ProjModelData>May}"/>
+											<Input id="i_RoleName" value="{SelectedProjectTableData>RoleName}" editable="false"/>
+											<Input id="i_RoleFunction" value="{SelectedProjectTableData>RoleFunction}" editable="false"/>
+											<Input id="i_BeginDate" value="{SelectedProjectTableData>BeginDate}" editable="false"/>
+											<Input id="i_EndDate" value="{SelectedProjectTableData>EndDate}" editable="false"/>
+											<Input id="i_ResourceName" value="{SelectedProjectTableData>ResourceName}" editable="true"/>
+											<Input id="i_Month1" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month2" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month3" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month4" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month5" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month6" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month7" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month8" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month9" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month10" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month11" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month12" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month13" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month14" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month15" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month16" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month17" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month18" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month19" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month20" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month21" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month22" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month23" value="{SelectedProjectTableData>Month1}" editable="true"/>
+											<Input id="i_Month24" value="{SelectedProjectTableData>Month1}" editable="true"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
-							<footer>
+						</ScrollContainer>
+						<!--							<footer>
 								<OverflowToolbar id="otb1">
 									<ToolbarSpacer/>
 									<Button text="Save" type="Accept" press="onPressSave"/>
-									<!--<Button text="Save as" type="Transparent"/>
-								<Button text="Cut" type="Transparent"/>
-								<Button text="Copy" type="Transparent"/>
-								<Button text="Paste" type="Transparent"/>-->
 									<Button text="Undo" type="Transparent"/>
 									<Button text="Cancel" type="Transparent"/>
 								</OverflowToolbar>
 							</footer>
-						</Page>
+						</Page>-->
 					</l:SplitPane>
-					<l:SplitPane requiredParentWidth="800">
+					<l:SplitPane>
+						<!--requiredParentWidth="800"-->
 						<Page title="Table Details for Resource Assignment">
-						<Table id="ResAsmntTbl" inset="false" mode="MultiSelect" items="{path: 'ProjModelData>/ResDtls' }">
-							<headerToolbar>
-								<OverflowToolbar>
-									<ToolbarSpacer/>
-									<!--<SearchField id="rlNamSearchText1" placeholder="Role Name" search="onSearchRlNm" width="15rem"/>-->
-									<!--<Input id="iAllocFld1" value="0" width="40px"/>-->
-									<!--<Button text=">" press="onPressAllocate" tooltip="Allocate" type="Reject"/>-->
-									<!--	<Button id="btnAdd1" icon="sap-icon://add" tooltip="Add Row" press="onPressAdd" class="add"/>-->
-									<!--	<Button id="btnDelete1" icon="sap-icon://delete" tooltip="Delete" press="onPressDelete" class="delete"/>-->
-										<!--<Button id="btnCopy" icon="sap-icon://activity-2" tooltip="Copy" press="onPressCopy"/>
+							<ScrollContainer horizontal="true" vertical="true" height="100%">
+								<Table id="ResAsmntTbl" inset="false" mode="MultiSelect" items="{path: 'SelectedResouceTableData>/' }" headerText="Resource Assignment">
+									<headerToolbar>
+										<OverflowToolbar>
+											<ToolbarSpacer/>
+											<!--<SearchField id="rlNamSearchText1" placeholder="Role Name" search="onSearchRlNm" width="15rem"/>-->
+											<!--<Input id="iAllocFld1" value="0" width="40px"/>-->
+											<!--<Button text=">" press="onPressAllocate" tooltip="Allocate" type="Reject"/>-->
+											<!--	<Button id="btnAdd1" icon="sap-icon://add" tooltip="Add Row" press="onPressAdd" class="add"/>-->
+											<!--	<Button id="btnDelete1" icon="sap-icon://delete" tooltip="Delete" press="onPressDelete" class="delete"/>-->
+											<!--<Button id="btnCopy" icon="sap-icon://activity-2" tooltip="Copy" press="onPressCopy"/>
 								<Button id="btnEdit" icon="sap-icon://edit" tooltip="Edit" press="onPressEdit" class="edit"/>-->
-									</OverflowToolbar>
-								</headerToolbar>
-								<columns>
-									<!--	<Column width="20px"/>-->
-									<!--<Column width="1.5em"/>-->
-									<Column width="8em">
-										<Text text="Project Name"/>
-									</Column>
-									<Column width="8em">
-										<Text text="Role Name"/>
-									</Column>
-
-									<Column width="3em">
-										<Text text="Jan-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Feb-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Mar-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Apr-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="May-18"/>
-									</Column>
-									<Column width="3em">
-										<Text text="Jun-18"/>
-									</Column>									
-								</columns>
-								<items>
-									<ColumnListItem>
-										<cells>
-											<Input value="{ProjModelData>ProjNm}"/>
-											<Input value="{ProjModelData>RlNm}"/>
-											<Input value="{ProjModelData>Jan}"/>
-											<Input value="{ProjModelData>Feb}"/>
-											<Input value="{ProjModelData>Mar}"/>
-											<Input value="{ProjModelData>Apr}"/>
-											<Input value="{ProjModelData>May}"/>
-											<Input value="{ProjModelData>Jun}"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-							
-							
+										</OverflowToolbar>
+									</headerToolbar>
+									<columns>
+										<Column width="8em"><Label id="l2_Projnam" text=""/></Column>
+										<Column width="8em"><Label id="l2_RoleName" text=""/></Column>
+										<Column width="8em"><Label id="l2_ResourceName" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month1" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month2" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month3" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month4" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month5" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month6" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month7" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month8" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month9" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month10" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month11" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month12" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month13" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month14" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month15" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month16" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month17" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month18" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month19" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month20" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month21" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month22" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month23" text=""/></Column>
+										<Column width="5em"><Label id="l2_Month24" text=""/></Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+											<Input id="i2_Projnam" value="{SelectedResouceTableData>Projnam}" editable="false"/>										
+											<Input id="i2_RoleName" value="{SelectedResouceTableData>RoleName}" editable="false"/>
+											<Input id="i2_ResourceName" value="{SelectedResouceTableData>ResourceName}" editable="true"/>
+											<Input id="i2_Month1" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month2" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month3" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month4" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month5" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month6" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month7" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month8" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month9" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month10" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month11" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month12" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month13" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month14" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month15" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month16" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month17" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month18" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month19" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month20" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month21" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month22" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month23" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											<Input id="i2_Month24" value="{SelectedResouceTableData>Month1}" editable="true"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</ScrollContainer>
 							<footer>
 								<OverflowToolbar id="otb2">
 									<ToolbarSpacer/>
